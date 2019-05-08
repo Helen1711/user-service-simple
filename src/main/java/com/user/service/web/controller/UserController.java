@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -58,6 +60,14 @@ public class UserController {
                     service.removeById(id);
                     return ResponseEntity.noContent().build();
                 })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<UserDto> getByEmail(@RequestParam String email) {
+        Optional<User> user = service.findByEmail(email);
+        return user.map(UserMapper::toDto)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 }

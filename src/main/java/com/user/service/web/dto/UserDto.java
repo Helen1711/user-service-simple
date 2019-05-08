@@ -2,11 +2,7 @@ package com.user.service.web.dto;
 
 import lombok.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
+@Data
 public class UserDto {
     private String name;
     private String email;
